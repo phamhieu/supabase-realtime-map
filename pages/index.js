@@ -1,13 +1,34 @@
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
+import { createClient } from '@supabase/supabase-js'
+
+const MapInput = dynamic(
+  () => import('components/MapInput'),
+  { ssr: false }
+)
 
 export default function Home() {
+  const apiEndpoint = "https://BeQiprVORewGZImzsKAS.supabase.co"
+  const apiKey = "IHDL7hnmTSlqQ1fm7kYw5SBQPY11Rp"
+  // Create a single supabase client for interacting with your database 
+  const supabase = createClient(apiEndpoint, apiKey);
+
   return (
     <div className="container">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossOrigin=""
+        />
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+          integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+          crossOrigin=""></script>
       </Head>
-
+      <MapInput />
       <main>
         <h1 className="title">
           Welcome to <a href="https://nextjs.org">Next.js!</a>
@@ -50,12 +71,12 @@ export default function Home() {
 
       <footer>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href="https://supabase.io"
           target="_blank"
           rel="noopener noreferrer"
         >
           Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
+          <img src="/supabase.svg" alt="Supabase Logo" className="logo" />
         </a>
       </footer>
 
