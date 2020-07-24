@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 4000",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^0.34.4",
     "next": "9.4.4",
     "react": "16.13.1",
     "react-dom": "16.13.1"
