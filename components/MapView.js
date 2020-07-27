@@ -5,7 +5,7 @@ import TextLog from "components/TextLog"
 
 function MapView({ supabase, clientRef, center, zoom }) {
   const [log, setLog] = useState(undefined)
-  const [positions, setPositions] = useState([center])
+  const [positions, setPositions] = useState([])
   const mySubscription = useRef(false)
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function MapView({ supabase, clientRef, center, zoom }) {
 
   useEffect(() => {
     let newLog = `Ref: ${clientRef}\nStart listerning...`
-    newLog += positions.map(item => { return `\nreceived lat=${RoundToFixDecimals(item.lat)} long=${RoundToFixDecimals(item.lng)}` })
+    newLog += positions.map(item => { return `\nid=${item.id} lat=${RoundToFixDecimals(item.lat)} long=${RoundToFixDecimals(item.lng)}` })
     setLog(newLog)
   }, [positions, clientRef])
 
@@ -24,10 +24,10 @@ function MapView({ supabase, clientRef, center, zoom }) {
       .from('locations')
       .on('INSERT', payload => {
         const { new: newItem } = payload
-        const { ref, latitude, longitude } = newItem
+        const { id, ref, latitude, longitude } = newItem
         if (ref === clientRef) {
           console.log('Change received!', payload)
-          setPositions([...positions, { lat: latitude, lng: longitude }])
+          setPositions([...positions, { id, ref, lat: latitude, lng: longitude }])
         }
       })
       .subscribe()
@@ -38,11 +38,12 @@ function MapView({ supabase, clientRef, center, zoom }) {
   }, [supabase, clientRef, positions, setPositions])
 
   function drawPolyline() {
-    const polyline = positions.map(item => {
+    const temp = positions.map(item => {
       if (!item) return
       const { lat, lng } = item
       return [lat, lng]
     })
+    const polyline = [center, ...temp]
     return <Polyline pathOptions={{ color: 'black' }} positions={polyline} />
   }
 

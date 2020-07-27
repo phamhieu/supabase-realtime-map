@@ -33,7 +33,7 @@ function DraggableMarker({ initialPos, addCircle }) {
 
 function MapInput({ supabase, clientRef, center, zoom }) {
   const [log, setLog] = useState(undefined)
-  const [circles, setCircles] = useState([center])
+  const [circles, setCircles] = useState([])
 
   useEffect(() => {
     let newLog = `Ref: ${clientRef}\nReady to send location...`
