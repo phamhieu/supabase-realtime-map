@@ -9,10 +9,6 @@ function MapView({ supabase, clientRef, center, zoom }) {
   const mySubscription = useRef(false)
 
   useEffect(() => {
-    setLog(`Ref: ${clientRef}\nStart listerning...`)
-  }, [clientRef])
-
-  useEffect(() => {
     let newLog = `Ref: ${clientRef}\nStart listerning...`
     newLog += positions.map(item => { return `\nid=${item.id} lat=${RoundToFixDecimals(item.lat)} long=${RoundToFixDecimals(item.lng)}` })
     setLog(newLog)
