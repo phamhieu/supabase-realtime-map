@@ -1,21 +1,92 @@
-import dynamic from 'next/dynamic'
+import { useEffect, useState, useRef, useMemo, useCallback } from 'react'
+import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet'
 
-const Map = dynamic(
-  () => import('components/Map'),
-  { ssr: false }
-)
+function DraggableMarker({ initialPos, addCircle }) {
+  const [position, setPosition] = useState(initialPos)
+  const markerRef = useRef(null)
+  const eventHandlers = useMemo(
+    () => ({
+      dragend() {
+        const marker = markerRef.current
+        const pos = marker.getLatLng()
+        if (addCircle) addCircle(pos)
+        if (marker) setPosition(pos)
+      },
+    }),
+    [addCircle],
+  )
 
-function MapInput() {
+  return (
+    <Marker
+      draggable={true}
+      eventHandlers={eventHandlers}
+      position={position}
+      ref={markerRef}>
+      <Popup minWidth={90}>
+        {`lat: ${position.lat}`}<br />{`long: ${position.lng}`}
+      </Popup>
+    </Marker>
+  )
+}
+
+function RoundToFixDecimals(value, numDecimals = 5) {
+  function addZero(s, size) {
+    while (s.length <= (size || 2)) { s = s + "0"; }
+    return s;
+  }
+
+  const temp = addZero("1", numDecimals)
+  const tempNum = parseInt(temp, 10)
+  return Math.round((value + Number.EPSILON) * tempNum) / tempNum
+}
+
+function MapInput({ supabase, clientRef, center, zoom }) {
+  const [log, setLog] = useState(undefined)
+  const [circles, setCircles] = useState([])
+  const textLog = useRef(null)
+
+  useEffect(() => {
+    let newLog = `Ref: ${clientRef}\nReady to send location...`
+    newLog += circles.map(item => { return `\nsend lat=${RoundToFixDecimals(item.lat)} long=${RoundToFixDecimals(item.lng)}` })
+    setLog(newLog)
+  }, [circles, clientRef])
+
+  useEffect(() => {
+    textLog.current.scrollTop = textLog.current.scrollHeight;
+  }, [log])
+
+  const onAddCircle = useCallback(
+    (pos) => {
+      setCircles([...circles, pos])
+    },
+    [setCircles, circles]
+  );
+
+  function renderCircles() {
+    return circles.map((item, index) => <Circle key={`${index}`} center={item} pathOptions={{ fillColor: 'blue' }} radius={20} />)
+  }
+
   return (
     <div className="map-input">
-      <Map position={[1.3489728457596013, 103.77043978311998]} />
+      <MapContainer center={center} zoom={zoom || 15} scrollWheelZoom={false}>
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <DraggableMarker initialPos={center} addCircle={onAddCircle} />
+        {renderCircles()}
+      </MapContainer>
+      <textarea ref={textLog} readOnly value={log} />
 
       <style jsx>{`
         .map-input {
-          margin-top: 3rem;
-          width: 40%;
         }
-        `}</style>
+
+        .map-input textarea {
+          width: 100%;
+          height: 7rem;
+        }
+      `}</style>
     </div>
   )
 }
