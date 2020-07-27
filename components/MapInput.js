@@ -56,10 +56,17 @@ function MapInput({ supabase, clientRef, center, zoom }) {
   }, [log])
 
   const onAddCircle = useCallback(
-    (pos) => {
+    async (pos) => {
       setCircles([...circles, pos])
+
+      // insert new location
+      // await supabase
+      //   .from('locations')
+      //   .insert([
+      //     { latitude: pos.lat, longitude: pos.lng, ref: clientRef },
+      //   ])
     },
-    [setCircles, circles]
+    [setCircles, circles, supabase, clientRef]
   );
 
   function renderCircles() {

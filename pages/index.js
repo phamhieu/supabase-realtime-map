@@ -61,10 +61,10 @@ export default function Home() {
 
         <div className="grid">
           <div className="card">
-            <MapInput clientRef={clientRef} center={center} zoom={zoomLevel} />
+            <MapInput supabase={supabase} clientRef={clientRef} center={center} zoom={zoomLevel} />
           </div>
           <div className="card">
-            <MapView clientRef={clientRef} center={center} zoom={zoomLevel} />
+            <MapView supabase={supabase} clientRef={clientRef} center={center} zoom={zoomLevel} />
           </div>
         </div>
       </main>
