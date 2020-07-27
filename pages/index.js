@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>Live Tracker</title>
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="stylesheet"
@@ -52,7 +52,7 @@ export default function Home() {
       </Head>
       <main>
         <h1 className="title">
-          Supabase realtime map
+          Live Tracker
         </h1>
 
         <p className="description">
