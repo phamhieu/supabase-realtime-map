@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet'
 import { RoundToFixDecimals } from "lib/utils"
+import TextLog from "components/TextLog"
 
 function DraggableMarker({ initialPos, addCircle }) {
   const [position, setPosition] = useState(initialPos)
@@ -33,17 +34,12 @@ function DraggableMarker({ initialPos, addCircle }) {
 function MapInput({ supabase, clientRef, center, zoom }) {
   const [log, setLog] = useState(undefined)
   const [circles, setCircles] = useState([center])
-  const textLog = useRef(null)
 
   useEffect(() => {
     let newLog = `Ref: ${clientRef}\nReady to send location...`
     newLog += circles.map(item => { return `\nsent lat=${RoundToFixDecimals(item.lat)} long=${RoundToFixDecimals(item.lng)}` })
     setLog(newLog)
   }, [circles, clientRef])
-
-  useEffect(() => {
-    textLog.current.scrollTop = textLog.current.scrollHeight;
-  }, [log])
 
   const onAddCircle = useCallback(
     async (pos) => {
@@ -73,7 +69,7 @@ function MapInput({ supabase, clientRef, center, zoom }) {
         <DraggableMarker initialPos={center} addCircle={onAddCircle} />
         {renderCircles()}
       </MapContainer>
-      <textarea ref={textLog} readOnly value={log} />
+      <TextLog log={log} />
 
       <style jsx>{`
         .map-input {

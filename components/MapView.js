@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { MapContainer, TileLayer, Polyline } from 'react-leaflet'
 import { RoundToFixDecimals } from "lib/utils"
+import TextLog from "components/TextLog"
 
 function MapView({ supabase, clientRef, center, zoom }) {
   const [log, setLog] = useState(undefined)
@@ -42,7 +43,7 @@ function MapView({ supabase, clientRef, center, zoom }) {
       const { lat, lng } = item
       return [lat, lng]
     })
-    return <Polyline pathOptions={{ color: 'red' }} positions={polyline} />
+    return <Polyline pathOptions={{ color: 'black' }} positions={polyline} />
   }
 
   return (
@@ -54,14 +55,10 @@ function MapView({ supabase, clientRef, center, zoom }) {
         />
         {drawPolyline()}
       </MapContainer>
-      <textarea readOnly value={log} />
+      <TextLog log={log} />
 
       <style jsx>{`
         .map-view {
-        }
-        .map-view textarea {
-          width: 100%;
-          height: 7rem;
         }
       `}</style>
     </div>

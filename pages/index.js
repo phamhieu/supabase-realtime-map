@@ -24,7 +24,7 @@ export default function Home() {
     lat: 1.3489728457596013,
     lng: 103.77043978311998
   }
-  const zoomLevel = 15
+  const zoomLevel = 14
 
   useEffect(() => {
     let ref = localStorage.getItem('_client-ref')
