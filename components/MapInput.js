@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet'
+import { RoundToFixDecimals } from "lib/utils"
 
 function DraggableMarker({ initialPos, addCircle }) {
   const [position, setPosition] = useState(initialPos)
@@ -29,25 +30,14 @@ function DraggableMarker({ initialPos, addCircle }) {
   )
 }
 
-function RoundToFixDecimals(value, numDecimals = 5) {
-  function addZero(s, size) {
-    while (s.length <= (size || 2)) { s = s + "0"; }
-    return s;
-  }
-
-  const temp = addZero("1", numDecimals)
-  const tempNum = parseInt(temp, 10)
-  return Math.round((value + Number.EPSILON) * tempNum) / tempNum
-}
-
 function MapInput({ supabase, clientRef, center, zoom }) {
   const [log, setLog] = useState(undefined)
-  const [circles, setCircles] = useState([])
+  const [circles, setCircles] = useState([center])
   const textLog = useRef(null)
 
   useEffect(() => {
     let newLog = `Ref: ${clientRef}\nReady to send location...`
-    newLog += circles.map(item => { return `\nsend lat=${RoundToFixDecimals(item.lat)} long=${RoundToFixDecimals(item.lng)}` })
+    newLog += circles.map(item => { return `\nsent lat=${RoundToFixDecimals(item.lat)} long=${RoundToFixDecimals(item.lng)}` })
     setLog(newLog)
   }, [circles, clientRef])
 
@@ -60,11 +50,11 @@ function MapInput({ supabase, clientRef, center, zoom }) {
       setCircles([...circles, pos])
 
       // insert new location
-      // await supabase
-      //   .from('locations')
-      //   .insert([
-      //     { latitude: pos.lat, longitude: pos.lng, ref: clientRef },
-      //   ])
+      await supabase
+        .from('locations')
+        .insert([
+          { latitude: pos.lat, longitude: pos.lng, ref: clientRef },
+        ])
     },
     [setCircles, circles, supabase, clientRef]
   );
