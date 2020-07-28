@@ -5,8 +5,6 @@ Build with supabase realtime and leafletjs [Demo App](https://realtime-map.verce
 <kbd>
 <img src="https://media.giphy.com/media/iDU80ngpsSddc0ObGI/giphy.gif" alt="Demo"/>
 </kbd>
-<br />
-<a href="https://giphy.com/gifs/iDU80ngpsSddc0ObGI">View full image</a>
 </p>
 
 ## How to use
