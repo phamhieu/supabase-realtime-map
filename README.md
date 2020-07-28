@@ -25,7 +25,7 @@ npm install
 npm run dev
 ```
 
-## Use with your Supabase Project
+## Test with your own Supabase Project
 #### Create locations table
 Go to [app.supabase.io](https://app.supabase.io/), create a new organisation and project if you haven't had one.  
 Run this sql query to create `locations` table.
