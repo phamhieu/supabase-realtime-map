@@ -25,4 +25,4 @@ npm install
 npm run dev
 ```
 
-Visit http://localhost:4000 and start slacking! Open in two tabs to see everything getting updated in realtime
+Visit http://localhost:4000 and start!
