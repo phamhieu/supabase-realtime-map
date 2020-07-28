@@ -1,5 +1,5 @@
 # Live Tracker Map
-Build with supabase realtime and leafletjs
+Build with supabase realtime and leafletjs [Demo App](https://realtime-map.vercel.app/)
 
 <p align="center">
 <kbd>
@@ -32,6 +32,7 @@ npm install
 # Open a terminal and run:
 npm run dev
 ```
+Visit http://localhost:4000 and start testing!
 
 ## Test with your own Supabase Project
 #### Create locations table
@@ -52,5 +53,3 @@ Make a .env.local in this folder with the following, you can get these values fr
 NEXT_PUBLIC_SUPABASE_ENDPOINT=<your-supabase-url>
 NEXT_PUBLIC_SUPABASE_APIKEY=<your-supabase-key>
 ```
-
-Visit http://localhost:4000 and start testing!
