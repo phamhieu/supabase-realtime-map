@@ -10,6 +10,12 @@ Build with supabase realtime and leafletjs. [[Demo App]](https://realtime-map.ve
 ## How to use
 #### Clone this folder
 ```bash
+git clone https://github.com/supabase/supabase
+cd supabase/examples/live-tracker-map
+```
+
+Using `sparse-checkout` with Git version 2.25 and above [[Read More]](https://dev.to/kiwicopple/quick-tip-clone-a-single-folder-from-github-44h6)
+```bash
 # Copy the repo to your machine
 git clone --no-checkout https://github.com/supabase/supabase
 cd supabase
