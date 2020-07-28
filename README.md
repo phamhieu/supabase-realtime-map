@@ -1,10 +1,8 @@
 # Live Tracker Map
----
 Build with supabase realtime and leafletjs
 
 ## How to use
----
-### Clone this folder
+#### Clone this folder
 ```bash
 # Copy the repo to your machine
 git clone --no-checkout https://github.com/supabase/supabase
@@ -16,12 +14,12 @@ git sparse-checkout set examples/live-tracker-map
 cd examples/live-tracker-map
 ```
 
-### Install dependencies
+#### Install dependencies
 ```bash
 npm install 
 ```
 
-### Start the app
+#### Start the app
 ```bash
 # Open a terminal and run:
 npm run dev
