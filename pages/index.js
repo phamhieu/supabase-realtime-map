@@ -64,7 +64,7 @@ export default function Home() {
             <MapInput supabase={supabase} clientRef={clientRef} center={center} zoom={zoomLevel} />
           </div>
           <div className="card">
-            <MapView supabase={supabase} clientRef={clientRef} center={center} zoom={zoomLevel} />
+            <MapView supabase={supabase} clientRef={clientRef} center={center} zoom={zoomLevel - 1} />
           </div>
         </div>
       </main>
