@@ -1,6 +1,14 @@
 # Live Tracker Map
 Build with supabase realtime and leafletjs
 
+<p align="center">
+<kbd>
+<img src="https://media.giphy.com/media/iDU80ngpsSddc0ObGI/giphy.gif" alt="Demo"/>
+</kbd>
+<br />
+<a href="https://giphy.com/gifs/iDU80ngpsSddc0ObGI">View full image</a>
+</p>
+
 ## How to use
 #### Clone this folder
 ```bash
