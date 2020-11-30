@@ -16,8 +16,8 @@ const MapView = dynamic(
 
 export default function Home() {
   const [clientRef, setClientRef] = useState(null)
-  const apiEndpoint = process.env.NEXT_PUBLIC_SUPABASE_ENDPOINT || "https://BeQiprVORewGZImzsKAS.supabase.co"
-  const apiKey = process.env.NEXT_PUBLIC_SUPABASE_APIKEY || "IHDL7hnmTSlqQ1fm7kYw5SBQPY11Rp"
+  const apiEndpoint = process.env.NEXT_PUBLIC_SUPABASE_ENDPOINT
+  const apiKey = process.env.NEXT_PUBLIC_SUPABASE_APIKEY
   // Create a single supabase client for interacting with your database 
   const supabase = createClient(apiEndpoint, apiKey);
   const center = {
