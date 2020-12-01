@@ -7,7 +7,7 @@ Build with supabase realtime and leafletjs. [[Demo App]](https://realtime-map.ve
 </kbd>
 </p>
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fphamhieu%2Fsupabase-realtime-map&project-name=my-supabase-realtime-map&repository-name=my-supabase-realtime-map&redirect-url=https%3A%2F%2Fapp.supabase.io&developer-id=oac_iqEHakSIX6YYPchogAxrP8Lu&demo-title=Realtime%20map%20demo&demo-description=A%20demo%20project%20deployed%20on%20vercel&demo-url=https%3A%2F%2Frealtime-map.vercel.app&demo-image=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2FiDU80ngpsSddc0ObGI%2Fgiphy.gif&integration-ids=oac_iqEHakSIX6YYPchogAxrP8Lu&external-id=supabase_realtime_map)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fphamhieu%2Fsupabase-realtime-map&project-name=my-supabase-realtime-map&repository-name=my-supabase-realtime-map&demo-title=Realtime%20map%20demo&demo-description=A%20demo%20project%20deployed%20on%20vercel&demo-url=https%3A%2F%2Frealtime-map.vercel.app&demo-image=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2FiDU80ngpsSddc0ObGI%2Fgiphy.gif&integration-ids=oac_iqEHakSIX6YYPchogAxrP8Lu&external-id=supabase_realtime_map)
 
 ## How to use
 #### Clone this folder
