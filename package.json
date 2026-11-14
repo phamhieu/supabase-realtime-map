@@ -2,18 +2,21 @@
   "name": "supabase-realtime-map",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "dev": "next dev -p 4000",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^0.34.0",
-    "leaflet": "^1.6.0",
-    "nanoid": "^3.1.10",
-    "next": "9.4.4",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-leaflet": "^3.0.0-beta.2"
+    "@supabase/supabase-js": "^2.119.0",
+    "leaflet": "^1.9.4",
+    "nanoid": "^6.0.2",
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-leaflet": "^5.0.0"
   }
 }

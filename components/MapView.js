@@ -1,12 +1,12 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { MapContainer, TileLayer, Polyline } from 'react-leaflet'
+import { nanoid } from 'nanoid'
 import { RoundToFixDecimals } from "lib/utils"
 import TextLog from "components/TextLog"
 
 function MapView({ supabase, clientRef, center, zoom }) {
   const [log, setLog] = useState(undefined)
   const [positions, setPositions] = useState([])
-  const mySubscription = useRef(false)
 
   useEffect(() => {
     let newLog = `Ref: ${clientRef}\nStart listerning...`
@@ -15,23 +15,30 @@ function MapView({ supabase, clientRef, center, zoom }) {
   }, [positions, clientRef])
 
   useEffect(() => {
+    if (!supabase) return
+
     // Listen to INSERT event on locations table
-    mySubscription.current = supabase
-      .from('locations')
-      .on('INSERT', payload => {
-        const { new: newItem } = payload
-        const { id, ref, latitude, longitude } = newItem
-        if (ref === clientRef) {
-          console.log('Change received!', payload)
-          setPositions([...positions, { id, ref, lat: latitude, lng: longitude }])
+    // Use a unique topic: supabase.channel() returns an existing channel with the same topic
+    const channel = supabase
+      .channel(`locations-${nanoid()}`)
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'locations' },
+        payload => {
+          const { new: newItem } = payload
+          const { id, ref, latitude, longitude } = newItem
+          if (ref === clientRef) {
+            console.log('Change received!', payload)
+            setPositions(prev => [...prev, { id, ref, lat: latitude, lng: longitude }])
+          }
         }
-      })
+      )
       .subscribe()
 
     return () => {
-      if (mySubscription.current) supabase.removeSubscription(mySubscription.current)
+      supabase.removeChannel(channel)
     }
-  }, [supabase, clientRef, positions, setPositions])
+  }, [supabase, clientRef])
 
   function drawPolyline() {
     const temp = positions.map(item => {

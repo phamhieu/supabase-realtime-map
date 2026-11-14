@@ -3,6 +3,7 @@ import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import { createClient } from '@supabase/supabase-js'
 import { nanoid } from 'nanoid'
+import 'leaflet/dist/leaflet.css'
 
 const MapInput = dynamic(
   () => import('components/MapInput'),
@@ -19,7 +20,10 @@ export default function Home() {
   const apiEndpoint = process.env.NEXT_PUBLIC_SUPABASE_ENDPOINT
   const apiKey = process.env.NEXT_PUBLIC_SUPABASE_APIKEY
   // Create a single supabase client for interacting with your database 
-  const supabase = createClient(apiEndpoint, apiKey);
+  // createClient throws when the URL or key is missing, so skip it then
+  const [supabase] = useState(() =>
+    apiEndpoint && apiKey ? createClient(apiEndpoint, apiKey) : null
+  )
   const center = {
     lat: 1.3489728457596013,
     lng: 103.77043978311998
@@ -40,15 +44,6 @@ export default function Home() {
       <Head>
         <title>Live Tracker</title>
         <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-          crossOrigin=""
-        />
-        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-          integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-          crossOrigin=""></script>
       </Head>
       <main>
         <h1 className="title">

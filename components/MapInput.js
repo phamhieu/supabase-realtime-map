@@ -1,7 +1,19 @@
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet'
+import L from 'leaflet'
+import markerIcon from 'leaflet/dist/images/marker-icon.png'
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
+import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 import { RoundToFixDecimals } from "lib/utils"
 import TextLog from "components/TextLog"
+
+// Leaflet cannot find its default marker images when the bundler renames them,
+// so give it the bundled image URLs directly
+L.Icon.Default.mergeOptions({
+  iconUrl: markerIcon.src,
+  iconRetinaUrl: markerIcon2x.src,
+  shadowUrl: markerShadow.src,
+})
 
 function DraggableMarker({ initialPos, addCircle }) {
   const [position, setPosition] = useState(initialPos)
@@ -46,6 +58,7 @@ function MapInput({ supabase, clientRef, center, zoom }) {
       setCircles([...circles, pos])
 
       // insert new location
+      if (!supabase) return
       await supabase
         .from('locations')
         .insert([

@@ -10,15 +10,30 @@ Build with supabase realtime and leafletjs. [[Demo App]](https://realtime-map.ve
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fphamhieu%2Fsupabase-realtime-map&project-name=my-supabase-realtime-map&repository-name=my-supabase-realtime-map&demo-title=Realtime%20map%20demo&demo-description=A%20demo%20project%20deployed%20on%20vercel&demo-url=https%3A%2F%2Frealtime-map.vercel.app&demo-image=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2FiDU80ngpsSddc0ObGI%2Fgiphy.gif&integration-ids=oac_jUduyjQgOyzev1fjrW83NYOv&external-id=supabase_realtime_map)
 
 ## How to use
+#### Requirements
+- Node.js 24 (LTS) or later. The `.nvmrc` file specifies the Node.js version.
+- npm. npm is included with Node.js.
+
 #### Clone this folder
 ```bash
 git clone https://github.com/supabase/supabase
 cd supabase/examples/live-tracker-map
 ```
 
+#### Select the Node.js version
+If you use [nvm](https://github.com/nvm-sh/nvm), run this command. It installs and selects the version in `.nvmrc`.
+```bash
+nvm install
+nvm use
+```
+Make sure that the version is correct:
+```bash
+node -v
+```
+
 #### Install dependencies
 ```bash
-npm install 
+npm install
 ```
 
 #### Start the app
@@ -27,6 +42,12 @@ npm install
 npm run dev
 ```
 Visit http://localhost:4000 and start testing!
+
+#### Build for production
+```bash
+npm run build
+npm run start
+```
 
 ## Test with your own Supabase Project
 #### Create locations table
@@ -39,6 +60,10 @@ CREATE TABLE locations (
   longitude numeric NOT NULL,
   ref VARCHAR(40)
 );
+```
+Run this sql query to send changes from the `locations` table to Realtime clients.
+```sql
+ALTER PUBLICATION supabase_realtime ADD TABLE locations;
 ```
 
 #### Setup env vars
